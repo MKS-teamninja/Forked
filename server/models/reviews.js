@@ -32,17 +32,17 @@ Reviews.addNew = function (restaurantReviewData) {
     })
 };
 
-Reviews.getReviews = function (rest_id) {
+Reviews.getUserReviews = function (user_id) {
   return db('reviews').where({
-      rest_id: rest_id
+      rest_id: user_id
     })
     .then(function (rows) {
-      console.log('getReviews called on ', rest_id, 'returning', rows);
+      console.log('getReviews called on ', user_id, 'returning', rows);
       return rows
     })
 };
-// This function is broken = will work on this Matt.
-Reviews.getUserReview = function (user_id, rest_id) {
+
+Reviews.getStoreReviewsPerUser = function (user_id, rest_id) {
   return db('reviews').where({
     user_id:  user_id,
     rest_id:  rest_id
