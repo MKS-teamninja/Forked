@@ -56,8 +56,9 @@ module.exports = function($http) {
       });
   }
 
-  var yelpSearchAdd = function(restaurantObj) {
+  var yelpSearchAdd = function(restaurantObj, userStat) {
     console.log('yelpSearchAdd firing...');
+    restaurantObj.userStat = userStat;
     return $http({
         method: 'POST',
         url: '/restaurants/',

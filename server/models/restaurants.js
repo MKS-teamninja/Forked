@@ -10,7 +10,8 @@ var Restaurants = module.exports;
 Restaurants.findOrCreate = function (selectedRestaurantData, userId) {
 
   var restaurantInfo = Object.assign({}, selectedRestaurantData);
-
+  var userStat = restaurantInfo.userStat;
+  delete restaurantInfo.userStat;
   console.log("created or finding restaurant with data: ", restaurantInfo, userId);
 
   return Restaurants.find({
@@ -24,7 +25,7 @@ Restaurants.findOrCreate = function (selectedRestaurantData, userId) {
       return db('buckets').returning('bucket_id').insert({
         rest_id: data.rest_id,
         user_id: userId,
-        category: 'wishlist'
+        category: userStat
       }).then(function () {
         return data;
       })
@@ -35,7 +36,7 @@ Restaurants.findOrCreate = function (selectedRestaurantData, userId) {
           var bucket = {
             rest_id: result[0],
             user_id: userId,
-            category: 'wishlist'
+            category: userStat
           };
           console.log('Bucket object', bucket);
 

@@ -62,12 +62,11 @@ module.exports = function($scope, $location, $mdDialog, $mdMedia, $mdBottomSheet
     console.log('Submitted search criterion: ', restRequest);
   };
 
-  $scope.addToRestaurants = function(restaurant) {
+  $scope.addToRestaurants = function(restaurant, userStat) {
       console.log('addToRestaurants fired:', restaurant);
 
-      //TODO MMD: add backend piping to deal with this property
       delete restaurant.addedToWishList;
-      Services.yelpSearchAdd(restaurant)
+      Services.yelpSearchAdd(restaurant, userStat)
         .then(function(resp) {
           console.log("refreshing main page after add", resp);
           restaurant.addedToWishList = true;
