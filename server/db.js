@@ -24,13 +24,7 @@ var knex = require('knex')({
 
 module.exports = knex;
 
-knex.schema.dropTable('restaurants');
-knex.schema.dropTable('buckets');
-knex.schema.dropTable('reviews');
-knex.schema.dropTable('sessions');
-knex.schema.dropTable('users').then(function(data){
-  console.log("DB DELETED USERS: ", data);
-})
+
 
 knex.ensureSchema = function () {
     return Promise.all([
@@ -38,8 +32,9 @@ knex.ensureSchema = function () {
 
                if (!exists) {
                 knex.schema.createTable('users', function (table) {
-                    table.string('user_id').primary();
+                    table.increments('user_id').primary();
                     table.string('user_name');
+                    table.string('hashed_password');
                     //table.string('fb_name');
                     //table.string('fb_id');
                 }).then(function (table) {
@@ -69,7 +64,7 @@ knex.ensureSchema = function () {
             if (!exists) {
                 knex.schema.createTable('buckets', function (table) {
                     table.increments('bucket_id').primary();
-                    table.string('user_id');
+                    table.integer('user_id');
                     table.integer('rest_id');
                     table.foreign('user_id').references('users.user_id');
                     table.foreign('rest_id').references('restaurants.rest_id');
@@ -83,10 +78,29 @@ knex.ensureSchema = function () {
 
         knex.schema.hasTable('reviews').then(function (exists) {
 
+            if (exists) {
+                knex.schema.dropTable('reviews').then(function () {
+                    knex.schema.createTable('reviews', function (table) {
+                        table.increments('id').primary();
+                        table.integer('user_id');
+                        table.integer('rest_id');
+                        table.foreign('user_id').references('users.user_id');
+                        table.foreign('rest_id').references('restaurants.rest_id');
+                        table.string('user_rating');
+                        table.string('review', 140);
+                        table.string('price');
+                    }).then(function (table) {
+                        console.log("created reviews table")
+                    })
+                });
+                console.log('dropping reviews');
+            }
+
+
             if (!exists) {
                 knex.schema.createTable('reviews', function (table) {
                     table.increments('id').primary();
-                    table.string('user_id');
+                    table.integer('user_id');
                     table.integer('rest_id');
                     table.foreign('user_id').references('users.user_id');
                     table.foreign('rest_id').references('restaurants.rest_id');
@@ -103,7 +117,7 @@ knex.ensureSchema = function () {
             if (!exists) {
                 knex.schema.createTable('sessions', function (table) {
                     table.increments();
-                    table.string('user_id');
+                    table.integer('user_id');
                     table.string('sessionToken');
                     table.foreign('user_id').references('users.user_id');
                 }).then(function (table) {

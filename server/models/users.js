@@ -4,24 +4,25 @@ var uuid = require('uuid');
 
 var User = module.exports;
 
-User.create = function (user_id, user_name) {
-  return db('users').returning('user_id').insert({
-    user_id: user_id,
-    user_name: user_name
-  }).then(function (data) {
+User.create = function (userObj) {
+  var usrObj = {
+    hashed_password: userObj.hashed_password,
+    user_name: userObj.username
+  };
+  return db('users').insert(usrObj).then(function (data) {
     //Assume data back is the inserted object?
-    console.log("User.create res data: ", data);
-    return data[0];
+    return data;
   })
 };
 
-User.createSession = function (user_id, sessionToken) {
+User.createSession = function (userId) {
+  //We just hope this works honestly.
+  var sessionToken = uuid.v4();
   return db('sessions').insert({
-    user_id: user_id,
+    user_id: userId,
     sessionToken :sessionToken
   }).then(function (data) {
-    console.log("users.js line 23, data: ", data);
-    return data.sessionToken;
+    return sessionToken;
   })
 };
 
