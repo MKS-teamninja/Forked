@@ -33,6 +33,7 @@ knex.schema.dropTable('users').then(function(data){
 
 knex.ensureSchema = function () {
     return Promise.all([
+       
         knex.schema.hasTable('users').then(function (exists) {
 
                if (!exists) {
@@ -80,8 +81,7 @@ knex.ensureSchema = function () {
                     console.log("created buckets table")
                 })
             }
-        }),
-     
+        }),    
    
 
         knex.schema.hasTable('sessions').then(function (exists) {
