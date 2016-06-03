@@ -26,6 +26,7 @@ module.exports = function($scope, $location, $mdDialog, $mdMedia, $mdBottomSheet
         clickOutsideToClose: true
       })
   };
+  //$scope.showReadReview =
 
   $scope.goto = function(path) {
     console.log("goto worked");
@@ -96,16 +97,36 @@ module.exports = function($scope, $location, $mdDialog, $mdMedia, $mdBottomSheet
     console.log("go to create a review page for selected restaurant");
   };
 
-  $scope.seeReview = function() {
-    console.log("go to see existing review page for selected restaurant");
-    Services.seeReview();
-  };
+  $scope.seeReview = function(ev, restaurant) {
+  Services.setCurrentRestReview(restaurant);
+    // console.log('firing showAdvanced');
+    $mdDialog.show({
+        controller: DialogController,
+        templateUrl: './views/seeReview.html',
+        parent: angular.element(document.querySelector('#popupContainer')),
+        targetEvent: ev,
+        clickOutsideToClose: true
+      })
+    };
+// $scope.showAdvanced = function(ev, restaurant) {
+//     Services.setCurrentRestReview(restaurant);
+//     console.log('firing showAdvanced');
+//     $mdDialog.show({
+//         controller: DialogController,
+//         templateUrl: './views/restReview.html',
+//         parent: angular.element(document.querySelector('#popupContainer')),
+//         targetEvent: ev,
+//         clickOutsideToClose: true
+//       })
+//   };
 
-  $scope.openBottomSheet = function() {
-    $mdBottomSheet.show({
-      template: "<md-bottom-sheet>Under Construction... (╯°□°)╯︵ ┻━┻</md-bottom-sheet>"
-    });
-  };
+
+
+  // $scope.openBottomSheet = function() {
+  //   $mdBottomSheet.show({
+  //     template: "<md-bottom-sheet>Under Construction... (╯°□°)╯︵ ┻━┻</md-bottom-sheet>"
+  //   });
+  // };
   $scope.goto = function(path) {
     console.log("goto worked");
     $location.path(path)
