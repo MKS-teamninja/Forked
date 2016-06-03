@@ -21,7 +21,6 @@ var knex = require('knex')({
 
 });
 
-
 module.exports = knex;
 
 knex.schema.dropTable('restaurants');
@@ -34,6 +33,7 @@ knex.schema.dropTable('users').then(function(data){
 
 knex.ensureSchema = function () {
     return Promise.all([
+       
         knex.schema.hasTable('users').then(function (exists) {
 
                if (!exists) {
@@ -47,7 +47,7 @@ knex.ensureSchema = function () {
                 })
             }
         }),
-////
+
         knex.schema.hasTable('restaurants').then(function (exists) {
             if (!exists) {
                 knex.schema.createTable('restaurants', function (table) {
@@ -74,30 +74,15 @@ knex.ensureSchema = function () {
                     table.foreign('user_id').references('users.user_id');
                     table.foreign('rest_id').references('restaurants.rest_id');
                     table.string('category');
-                }).then(function (table) {
-                    console.log("created buckets table")
-                })
-            }
-        }),
-        // knex.schema.dropTable('reviews'),
-
-        knex.schema.hasTable('reviews').then(function (exists) {
-
-            if (!exists) {
-                knex.schema.createTable('reviews', function (table) {
-                    table.increments('id').primary();
-                    table.string('user_id');
-                    table.integer('rest_id');
-                    table.foreign('user_id').references('users.user_id');
-                    table.foreign('rest_id').references('restaurants.rest_id');
                     table.string('user_rating');
                     table.string('review', 140);
                     table.string('price');
                 }).then(function (table) {
-                    console.log("created reviews table")
+                    console.log("created buckets table")
                 })
             }
-        }),
+        }),    
+   
 
         knex.schema.hasTable('sessions').then(function (exists) {
             if (!exists) {
@@ -112,5 +97,4 @@ knex.ensureSchema = function () {
             }
         })
     ])
-
 };
