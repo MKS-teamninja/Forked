@@ -1,0 +1,25 @@
+<div ng-controller="ReviewCtrl" id="popupContainer" class="reviewBox" ng-cloak>
+  <h3 class="md-title">Restaurant Review</h3>
+  <div>
+    <md-input-container>
+      <label>Rating:</label>
+      <md-select ng-disabled="getSelectedRating()"ng-model="selectedRating" md-selected-text="getSelectedRating()">
+        <md-optgroup>
+          <md-option ng-value="rating" ng-repeat="rating in ratings">{{rating}}</md-option>
+        </md-optgroup>
+      </md-select>
+    </md-input-container>
+    <md-input-container>
+      <label>Price Range:</label>
+      <md-select ng-disabled="getSelectedPrice()"ng-model="selectedPrice" md-selected-text="getSelectedPrice()">
+        <md-optgroup>
+          <md-option ng-value="price" ng-repeat="price in prices">{{price}}</md-option>
+        </md-optgroup>
+      </md-select>
+    </md-input-container>
+  </div>
+  <div>
+    <textarea class='reviewTextBox' type='text' name='review' ng-disabled='textReview' ng-model='textReview' ng-maxlength='140' placeholder="Enter notes here"></textarea>
+  </div>
+</div>
+
