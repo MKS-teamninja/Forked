@@ -112,6 +112,11 @@ module.exports = function($scope, $location, $mdDialog, $mdMedia, $mdBottomSheet
     $location.path(path)
   };
 
+  $scope.isInUserRests = function(restaurant) {
+    return $scope.mainServerReply.find(function(rest) {
+      return restaurant.yelp_id === rest.yelp_id;
+    })
+  }
   //docCookies is a library that implements several methods for dealing with cookies
   $scope.docCookies = {
     getItem: function(sKey) {
