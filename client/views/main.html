@@ -87,12 +87,12 @@
                     <h2>{{restaurant.name}}</h2>
                     <img class="restaurantImg" src='{{restaurant.image}}'>
                     <p><span style="font-weight:bold">Yelp Rating:</span> {{restaurant.yelp_rating}}</p>
-                    <p><span style="font-weight:bold">Category:</span> {{restaurant.categories[0][0]}}, {{restaurant.categories[1]}} </p>
+                    <p><span style="font-weight:bold">Category:</span> {{restaurant.categories[0]}}, {{restaurant.categories[1]}} </p>
                   </md-card-content>
                   <div class="md-actions" layout="row" layout-align="end center">
-                    <md-button class="addBtn" ng-model='userChoice' ng-click="addToRestaurants(restaurant, 'wishlist')" ng-show='!isInUserRests(restaurant) && !restaurant.addedToWishList' >+ Wishlist</md-button>
-                    <md-button class="addBtn" ng-model='userChoice' ng-click="addToRestaurants(restaurant, 'been')" ng-show='!isInUserRests(restaurant) && !restaurant.addedToWishList' >+ Been There</md-button>
-                    <md-button class="reviewBtn" ng-show='isInUserRests(restaurant)' >Added!</md-button>
+                    <md-button class="addBtn" ng-model='userChoice' ng-click="addToRestaurants(restaurant, 'wishlist')" ng-show='!isInUserRests(restaurant) && !restaurant.addedToWishList' >+Wishlist</md-button>
+                    <md-button class="addBtn" ng-model='userChoice' ng-click="addToRestaurants(restaurant, 'been')" ng-show='!isInUserRests(restaurant) && !restaurant.addedToWishList' >+Been There</md-button>
+                    <md-button class="addBtn" ng-disabled='isInUserRests(restaurant)' ng-show='isInUserRests(restaurant)' >Added</md-button>
                   </div>
                 </md-card>
               </div>

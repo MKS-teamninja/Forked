@@ -103,6 +103,12 @@ h1 {
   font-weight: bold;
 }
 
+.addBtn[disabled] {
+  background-color: lightgray;
+  color: white;
+  font-weight: bold;
+}
+
 .reviewBtn {
   background-color: blue;
   color: white;
