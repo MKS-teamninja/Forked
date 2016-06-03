@@ -27,11 +27,3 @@ Buckets.getBucketByUserId = function (user_id) {
       return rows
     })
 };
-
-Buckets.updateReview = function (user_id, rest_id,user_rating, review, price ){
-	return db('buckets').where({rest_id: rest_id,user_id: user_id})
-		.update({user_rating: user_rating, review: review, price: price})
-		.then(function (rows){
-		return rows;
-	})
-};
