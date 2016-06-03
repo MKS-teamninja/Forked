@@ -61,7 +61,6 @@ when we inject a controller/factory/directive we use the format found below:
 */
 app.controller('MainCtrl', require('./src/main.js'));
 app.controller('LoginCtrl', require('./src/forkedLogin.js'));
-app.controller('SearchCtrl', require('./src/restSearch.js'));
 app.controller('ReviewCtrl', require('./src/restReview.js'));
 
 app.factory('Services', require('./services/services.js'));
